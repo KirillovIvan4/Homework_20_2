@@ -1,9 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+
+from catalog.models import Product
 
 
 # Create your views here.
 def home(request):
-    return render(request, 'home.html')
+    product_list = Product.objects.all()
+    contex = {
+        'object_list' : product_list
+    }
+    return render(request, 'home.html',contex)
 
 
 def contacts(request):
@@ -15,5 +21,9 @@ def contacts(request):
     return render(request, 'contacts.html')
 
 
-def product(request):
-    return render(request, 'product.html')
+def  products(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    contex = {
+        'product': product
+    }
+    return render(request, 'product.html',contex)
