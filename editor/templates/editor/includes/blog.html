@@ -1,0 +1,22 @@
+{% extends 'catalog/base.html' %}
+{% load my_tags %}
+
+    {% block content %}
+      
+<div class="card" style="width: 18rem;">
+  <img src="{{ product.preview | media_filter }}"  width: 100px; height: 100px;>
+  <div class="card-body">
+    <h5 class="card-title">{{ object}}</h5>
+    <p class="card-text">Небольшой пример текста, который должен основываться на названии карты и составлять основную часть содержимого карты.</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">{{ product }}</li>
+    <li class="list-group-item">{{ product.purchase_price }}</li>
+    <li class="list-group-item">{{ product.description }}</li>
+  </ul>
+  <div class="card-body">
+    <a href="#" class="card-link">Ссылка карточки</a>
+    <a href="#" class="card-link">Другая ссылка</a>
+  </div>
+</div>
+  {% endblock %}
