@@ -12,3 +12,6 @@ class EditorCreateView(CreateView):
     model = Publications
     fields = ('title', 'preview', 'body')
     #template_name = 'editor/blog.html'
+
+class EditorListView(ListView):
+    model = Publications
