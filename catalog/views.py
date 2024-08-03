@@ -1,15 +1,12 @@
 from django.shortcuts import render, get_object_or_404
+from django.views.generic import ListView, DetailView
 
 from catalog.models import Product
 
 
-# Create your views here.
-def home(request):
-    product_list = Product.objects.all()
-    contex = {
-        'object_list' : product_list
-    }
-    return render(request, 'home.html',contex)
+class ProductListView(ListView):
+    model = Product
+    template_name = 'catalog/home.html'
 
 
 def contacts(request):
@@ -18,12 +15,9 @@ def contacts(request):
         phone = request.POST.get("phone")
         massage = request.POST.get("massage")
         print(f'{name} ({phone}): {massage}')
-    return render(request, 'contacts.html')
+    return render(request, 'catalog/contacts.html')
 
+class ProducDetailView(DetailView):
+    model = Product
+    template_name = 'catalog/product.html'
 
-def  products(request, pk):
-    product = get_object_or_404(Product, pk=pk)
-    contex = {
-        'product': product
-    }
-    return render(request, 'product.html',contex)
