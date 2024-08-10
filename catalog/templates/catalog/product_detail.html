@@ -15,8 +15,10 @@
     <li class="list-group-item">{{ product.description }}</li>
   </ul>
   <div class="card-body">
-    <a href="#" class="card-link">Ссылка карточки</a>
-    <a href="#" class="card-link">Другая ссылка</a>
+    <a class="p-2 btn btn-outline-warning"
+                                           href="{% url 'catalog:edit' object.pk %}">Редактировать</a>
+    <a class="p-2 btn btn-outline-warning"
+                                           href="{% url 'catalog:delete' object.pk %}">Удалить</a>
   </div>
 </div>
   {% endblock %}

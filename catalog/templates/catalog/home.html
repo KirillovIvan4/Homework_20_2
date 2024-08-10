@@ -11,7 +11,7 @@
                     великолепен</p>
                 <p class=" display-30" style="color:#C0C0C0;"> будет когда нибудь</p>
                 <p>
-                    <a href="#" class="btn btn-primary my-2">Main call to action</a>
+                    <a href="{% url 'catalog:create' %}" class="btn btn-primary my-2">Добавить новый продукт</a>
                     <a href="#" class="btn btn-secondary my-2">Secondary action</a>
                 </p>
             </div>
@@ -35,7 +35,7 @@
                                     <div class="btn-group">
 
                                         <a class="p-2 btn btn-outline-warning"
-                                           href="{% url 'catalog:product' object.pk %}">Посмотреть</a>
+                                           href="{% url 'catalog:view' object.pk %}">Посмотреть</a>
                                     </div>
                                 </div>
                             </div>
