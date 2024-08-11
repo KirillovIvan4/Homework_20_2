@@ -20,5 +20,15 @@
     <a class="p-2 btn btn-outline-warning"
                                            href="{% url 'catalog:delete' object.pk %}">Удалить</a>
   </div>
+    <ul class="list-group list-group-flush">
+         <li>
+                        {% for v in versions.items %}
+                            {% if v.0 == product.pk %}
+                                {{ v.1 }}
+                            {% endif %}
+                        {% endfor %}
+                    </li>
+   
+  </ul>
 </div>
   {% endblock %}
