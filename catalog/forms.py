@@ -19,22 +19,18 @@ class ProductForm(StyleFormMixin, ModelForm):
     def clean_name(self):
         cleaned_data = self.cleaned_data["name"]
 
-        if cleaned_data in ban_list:
-            for word in ban_list:
-                if word in cleaned_data.lower():
-                    raise forms.ValidationError(f"В названии продукта нельзя использовать запрещенные слово {word}.")
+        for word in ban_list:
+            if word in cleaned_data.lower():
+                raise forms.ValidationError(f"В названии продукта нельзя использовать запрещенные слово '{word}'.")
 
         return cleaned_data
 
 
     def clean_description(self):
         cleaned_data = self.cleaned_data["description"]
-
-        if cleaned_data in ban_list:
-            for word in ban_list:
-                if word in cleaned_data.lower():
-                    raise forms.ValidationError(
-                        f"В описании продукта нельзя использовать запрещенные слово {word}.")
+        for word in ban_list:
+            if word in cleaned_data.lower():
+                raise forms.ValidationError(f"В описании продукта нельзя использовать запрещенные слово '{word}'.")
 
         return cleaned_data
 

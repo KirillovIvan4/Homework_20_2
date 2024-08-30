@@ -12,6 +12,7 @@ class ProductListView(ListView):
     template_name = 'catalog/home.html'
 
 
+
 def contacts(request):
     if request. method == 'POST':
         name = request.POST.get("name")
@@ -37,7 +38,7 @@ class ProductUpdateView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
-        VersionFormset = inlineformset_factory(Product, Version, form=VersionForm, extra=1)
+        VersionFormset = inlineformset_factory(Product, Version, VersionForm, extra=1)
         if self.request.method == 'POST':
             context_data['formset'] = VersionFormset(self.request.POST, instance=self.object)
         else:

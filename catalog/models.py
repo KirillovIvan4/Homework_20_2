@@ -15,6 +15,7 @@ class Product(models.Model):
         verbose_name="категория",
         **NULLBLE,
     )
+
     purchase_price = models.IntegerField(verbose_name="цена покупки")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="дата создания ")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="дата последних изменений")
