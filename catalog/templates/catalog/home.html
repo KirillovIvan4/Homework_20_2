@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <p class="card-text">
-                    {% if product.last_version %}
+                    {% if product.last_version.current_version %}
                         <p>{{ product.last_version.version_number }}</p>
                     {% else %}
                         <p>"Нет активной версии"</p>
