@@ -7,6 +7,8 @@ from catalog.models import Product, Version
 from catalog.forms import ProductForm, VersionForm
 
 
+
+
 class ProductListView(ListView):
     model = Product
     template_name = 'catalog/home.html'

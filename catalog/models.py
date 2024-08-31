@@ -3,6 +3,7 @@ from django.db import models
 NULLBLE = {"blank": True, "null": True}
 
 
+
 # Create your models here.
 class Product(models.Model):
     name = models.CharField(max_length=100, verbose_name="имя")
@@ -27,6 +28,10 @@ class Product(models.Model):
         verbose_name = "продукт"
         verbose_name_plural = "продукты"
         ordering = ["name", "purchase_price"]
+
+    @property
+    def last_version(self):
+        return self.versions.filter(current_version=True).last()
 
 
 class Category(models.Model):
