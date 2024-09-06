@@ -1,0 +1,48 @@
+{% extends 'catalog/base.html' %}
+{% load my_tags %}
+
+{% block content %}
+
+    <div class="card" style="width: 18rem;">
+        <img src="{{ product.preview | media_filter }}" width: 100px; height: 100px;>
+        <div class="card-body">
+            <h5 class="card-title">{{ object }}</h5>
+            <p class="card-text">Небольшой пример текста, который должен основываться на названии карты и составлять
+                основную часть содержимого карты.</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">{{ product }}</li>
+            <li class="list-group-item">{{ product.purchase_price }}</li>
+            <li class="list-group-item">{{ product.description }}</li>
+            <li class="list-group-item">{{ category.name }}</li>
+            {% if product.author %}
+            <li class="list-group-item">{{ product.author }}</li>
+            {% endif %}
+            <li>
+           {% if version.current_version %}
+            <p class="card-text">Актуальная версия: {{ version.name }}</p>
+            {% else %}
+            <p class="card-text">актуальной версии нет </p>
+            {% endif %}
+            </li>
+        </ul>
+        {% if user.is_authenticated %}
+        <div class="card-body">
+            <a class="p-2 btn btn-outline-warning"
+               href="{% url 'catalog:edit' object.pk %}">Редактировать</a>
+            <a class="p-2 btn btn-outline-warning"
+               href="{% url 'catalog:delete' object.pk %}">Удалить</a>
+        </div>
+        {% endif %}
+        <ul class="list-group list-group-flush">
+            <li>
+                {% for v in versions.items %}
+                    {% if v.0 == product.pk %}
+                        {{ v.1 }}
+                    {% endif %}
+                {% endfor %}
+            </li>
+
+        </ul>
+    </div>
+{% endblock %}

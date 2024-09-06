@@ -1,6 +1,9 @@
 from django.db import models
 
+from users.models import User
+
 NULLBLE = {"blank": True, "null": True}
+
 
 
 # Create your models here.
@@ -15,9 +18,12 @@ class Product(models.Model):
         verbose_name="категория",
         **NULLBLE,
     )
+
     purchase_price = models.IntegerField(verbose_name="цена покупки")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="дата создания ")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="дата последних изменений")
+
+    author = models.ForeignKey(User, verbose_name="автор",  **NULLBLE, on_delete=models.SET_NULL)
 
     def __str__(self):
         return f"{self.name}"
@@ -26,6 +32,10 @@ class Product(models.Model):
         verbose_name = "продукт"
         verbose_name_plural = "продукты"
         ordering = ["name", "purchase_price"]
+
+    @property
+    def last_version(self):
+        return self.versions.filter(current_version=True).last()
 
 
 class Category(models.Model):
@@ -41,3 +51,21 @@ class Category(models.Model):
         ordering = [
             "name",
         ]
+
+
+class Version(models.Model):
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name="versions",
+        verbose_name="продукт")
+    version_number = models.CharField(max_length=10, verbose_name="версия")
+    version_name = models.CharField(max_length=100, verbose_name="название версии")
+    current_version = models.BooleanField(default=True, verbose_name="текущая версия")
+
+    def __str__(self):
+        return f"{self.product.name} - {self.version_number}"
+
+    class Meta:
+        verbose_name = "версия продукта"
+        verbose_name_plural = "версии продуктов"
