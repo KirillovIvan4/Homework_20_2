@@ -5,11 +5,12 @@ from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from pytils.translit import slugify
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from editor.models import Publications
 
 
-class EditorCreateView(CreateView):
+class EditorCreateView(CreateView, LoginRequiredMixin):
     model = Publications
     fields = ('title', 'preview', 'body')
     success_url = reverse_lazy('editor:list')
@@ -18,6 +19,11 @@ class EditorCreateView(CreateView):
         new_mat = form.save()
         new_mat.slug = slugify(new_mat.title)
         new_mat.save()
+
+        editor = form.save()
+        user = self.request.user
+        editor.author = user
+        editor.save()
         return super().form_valid(form)
 
 
@@ -37,7 +43,7 @@ class EditorDetailView(DetailView):
         self.object.save()
         return self.object
 
-class EditorUpdateView(UpdateView):
+class EditorUpdateView(UpdateView, LoginRequiredMixin):
     model = Publications
     fields = ('title', 'preview', 'body')
 
@@ -51,7 +57,7 @@ class EditorUpdateView(UpdateView):
         return reverse('editor:view', args=[self.kwargs.get('pk')])
 
 
-class EditorDeleteView(DeleteView):
+class EditorDeleteView(DeleteView, LoginRequiredMixin):
     model = Publications
     success_url = reverse_lazy('editor:list')
 

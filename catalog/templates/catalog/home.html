@@ -10,10 +10,12 @@
             <p class="lead text-body-secondary">Это лучший из онлайн магазинов во вселенной!!! Он удобен, полятен и
                 великолепен</p>
             <p class=" display-30" style="color:#C0C0C0;"> будет когда нибудь</p>
+            {% if user.is_authenticated %}
             <p>
                 <a href="{% url 'catalog:create' %}" class="btn btn-primary my-2">Добавить новый продукт</a>
                 <a href="#" class="btn btn-secondary my-2">Secondary action</a>
             </p>
+            {% endif %}
         </div>
     </div>
 </section>

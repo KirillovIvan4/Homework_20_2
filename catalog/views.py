@@ -2,18 +2,15 @@ from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.forms import inlineformset_factory
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from catalog.models import Product, Version
 from catalog.forms import ProductForm, VersionForm
 
 
-
-
 class ProductListView(ListView):
     model = Product
     template_name = 'catalog/home.html'
-
-
 
 def contacts(request):
     if request. method == 'POST':
@@ -27,13 +24,22 @@ class ProducDetailView(DetailView):
     model = Product
     template_name = 'catalog/product_detail.html'
 
-class ProductCreateView(CreateView):
+
+class ProductCreateView(CreateView, LoginRequiredMixin):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:list')
 
+    def form_valid(self, form):
+        product = form.save()
+        user = self.request.user
+        product.author = user
+        product.save()
+        return super().form_valid(form)
 
-class ProductUpdateView(UpdateView):
+
+
+class ProductUpdateView(UpdateView, LoginRequiredMixin):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:list')

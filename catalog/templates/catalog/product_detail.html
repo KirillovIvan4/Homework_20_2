@@ -15,6 +15,9 @@
             <li class="list-group-item">{{ product.purchase_price }}</li>
             <li class="list-group-item">{{ product.description }}</li>
             <li class="list-group-item">{{ category.name }}</li>
+            {% if product.author %}
+            <li class="list-group-item">{{ product.author }}</li>
+            {% endif %}
             <li>
            {% if version.current_version %}
             <p class="card-text">Актуальная версия: {{ version.name }}</p>
@@ -23,12 +26,14 @@
             {% endif %}
             </li>
         </ul>
+        {% if user.is_authenticated %}
         <div class="card-body">
             <a class="p-2 btn btn-outline-warning"
                href="{% url 'catalog:edit' object.pk %}">Редактировать</a>
             <a class="p-2 btn btn-outline-warning"
                href="{% url 'catalog:delete' object.pk %}">Удалить</a>
         </div>
+        {% endif %}
         <ul class="list-group list-group-flush">
             <li>
                 {% for v in versions.items %}

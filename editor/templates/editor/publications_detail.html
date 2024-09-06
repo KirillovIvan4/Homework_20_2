@@ -15,6 +15,9 @@
                     <li class="list-group-item">{{ object.body }}</li>
                     <li class="list-group-item">{{ object.views_count }}</li>
                     <li class="list-group-item">{{ object.created_at }}</li>
+                    {% if object.author %}
+            <li class="list-group-item">{{ object.author }}</li>
+            {% endif %}
                 </ul>
                 <div class="card-body">
                     <a href="{% url 'editor:list' %}" class="card-link">Назад</a>
