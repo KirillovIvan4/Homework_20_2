@@ -10,7 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from editor.models import Publications
 
 
-class EditorCreateView(CreateView, LoginRequiredMixin):
+class EditorCreateView(LoginRequiredMixin, CreateView):
     model = Publications
     fields = ('title', 'preview', 'body')
     success_url = reverse_lazy('editor:list')
@@ -43,7 +43,7 @@ class EditorDetailView(DetailView):
         self.object.save()
         return self.object
 
-class EditorUpdateView(UpdateView, LoginRequiredMixin):
+class EditorUpdateView(LoginRequiredMixin, UpdateView):
     model = Publications
     fields = ('title', 'preview', 'body')
 
@@ -57,7 +57,7 @@ class EditorUpdateView(UpdateView, LoginRequiredMixin):
         return reverse('editor:view', args=[self.kwargs.get('pk')])
 
 
-class EditorDeleteView(DeleteView, LoginRequiredMixin):
+class EditorDeleteView(LoginRequiredMixin, DeleteView):
     model = Publications
     success_url = reverse_lazy('editor:list')
 

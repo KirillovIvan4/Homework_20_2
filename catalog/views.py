@@ -25,7 +25,7 @@ class ProducDetailView(DetailView):
     template_name = 'catalog/product_detail.html'
 
 
-class ProductCreateView(CreateView, LoginRequiredMixin):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:list')
@@ -39,7 +39,7 @@ class ProductCreateView(CreateView, LoginRequiredMixin):
 
 
 
-class ProductUpdateView(UpdateView, LoginRequiredMixin):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:list')
